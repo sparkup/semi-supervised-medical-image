@@ -1,0 +1,36 @@
+[project]
+name = "semi-supervised-medical-images"
+version = "0.1.0"
+description = "Semi-supervised learning for medical images with pretrained features"
+authors = [
+    { name = "David Worsley-Tonks", email = "hello@sparkup.dev" }
+]
+requires-python = ">=3.10"
+
+dependencies = [
+    # Core scientific stack
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "matplotlib",
+    "torch",
+    "torchvision",
+    "opencv-python",
+    "seaborn"
+]
+
+[project.optional-dependencies]
+dev = [
+    # Development tooling
+    "ipykernel", 
+    "jupyter", 
+    "black", 
+    "ruff"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"

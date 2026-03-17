@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Data (ignore heavy files but keep structure)
+data/raw/**
+!data/raw/labeled/
+!data/raw/unlabeled/
+models/** 
+
+# macOS system files
+.DS_Store
+
+# Keep empty folders with a .gitkeep

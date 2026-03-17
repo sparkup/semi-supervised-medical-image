@@ -1,0 +1,37 @@
+version: "3.9"
+
+# Shared volume mapping for dev + jupyter services.
+x-vols: &default-vols
+  - ./:/workspace
+  - ./data:/workspace/data
+  - ./models:/workspace/models
+
+services:
+  # Base development container (CPU profile).
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    image: p10-semi:cpu
+    working_dir: /workspace
+    volumes: *default-vols
+    environment:
+      - MPLBACKEND=Agg  
+      - PYTHONPATH=/workspace
+    tty: true
+    stdin_open: true
+    profiles: ["cpu"]
+
+  # Jupyter Lab profile, reusing the dev container settings.
+  jupyter:
+    extends:
+      service: dev
+    command: >
+      jupyter lab --ip=0.0.0.0 --port=8888 --no-browser
+      --NotebookApp.token='' --NotebookApp.password=''
+    ports:
+      - "8888:8888"
+    profiles: ["cpu","jupyter"]
